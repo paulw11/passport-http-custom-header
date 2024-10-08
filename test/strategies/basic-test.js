@@ -88,6 +88,41 @@ vows.describe('BasicStrategy').addBatch({
     },
   },
 
+  'strategy handling a request with a custom header that is not provided': {
+    topic: function() {
+      var strategy = new BasicStrategy({header:'x-custom-header'},function(userid, password, done) {
+        done(null, { username: userid, password: password });
+      });
+      return strategy;
+    },
+    
+    'after augmenting with actions': {
+      topic: function(strategy) {
+        var self = this;
+        var req = {};
+        strategy.success = function(user) {
+          self.callback(new Error('should not be called'));
+        }
+        strategy.fail = function(challenge) {
+          self.callback(null, challenge);
+        }
+        strategy.error = function(err) {
+          self.callback(new Error('should not be called'));
+        }
+        
+        req.headers = {};
+        req.headers.authorization = 'Basic Ym9iOnNlY3JldA==';
+        process.nextTick(function () {
+          strategy.authenticate(req);
+        });
+      },
+      
+      'should not generate an error' : function(err, user) {
+        assert.isNull(err);
+      },
+    },
+  },
+
   'strategy handling a request that is not verified': {
     topic: function() {
       var strategy = new BasicStrategy(function(userid, password, done) {

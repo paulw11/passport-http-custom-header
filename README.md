@@ -8,30 +8,12 @@ for these schemes can be easily and unobtrusively integrated into any
 application or framework that supports [Connect](http://www.senchalabs.org/connect/)-style
 middleware, including [Express](http://expressjs.com/).
 
-<div align="center">
+This strategy was forked from [passport-http](https://github.com/jaredhanson/passport-http) and allows the authorization header value to be customised - This is useful where your service is deployed behind a gateway that passes the original `Authorization` header in a custom header.
 
-:heart: [Sponsors](https://www.passportjs.org/sponsors/?utm_source=github&utm_medium=referral&utm_campaign=passport-http&utm_content=nav-sponsors)
-
-</div>
-
----
-
-<p align="center">
-  <sup>Advertisement</sup>
-  <br>
-  <a href="https://click.linksynergy.com/link?id=D*o7yui4/NM&offerid=507388.1672410&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fnodejs-express-mongodb-bootcamp%2F&u1=kLuTIzmrCT1t6LdTW2psh0IyTCmrtTgnUbaS9Ot">Node.js, Express, MongoDB & More: The Complete Bootcamp 2020</a><br>Master Node by building a real-world RESTful API and web app (with authentication, Node.js security, payments & more)
-</p>
-
----
-
-[![npm](https://img.shields.io/npm/v/passport-http.svg)](https://www.npmjs.com/package/passport-http)
-[![build](https://img.shields.io/travis/jaredhanson/passport-http.svg)](https://travis-ci.org/jaredhanson/passport-http)
-[![coverage](https://img.shields.io/coveralls/jaredhanson/passport-http.svg)](https://coveralls.io/github/jaredhanson/passport-http)
-[...](https://github.com/jaredhanson/passport-http/wiki/Status)
 
 ## Install
 
-    $ npm install passport-http
+    $ npm install passport-http-custom-header
 
 ## Usage of HTTP Basic
 
@@ -41,7 +23,12 @@ The HTTP Basic authentication strategy authenticates users using a userid and
 password.  The strategy requires a `verify` callback, which accepts these
 credentials and calls `done` providing a user.
 
-    passport.use(new BasicStrategy(
+A customer header can be used to obtain the authorization value by providing
+the `header` option.  This defaults to 'authorization`
+
+    passport.use(new BasicStrategy({ 
+      header:'x-authorization'
+    },
       function(userid, password, done) {
         User.findOne({ username: userid }, function (err, user) {
           if (err) { return done(err); }
@@ -85,6 +72,9 @@ The strategy also accepts an optional `validate` callback, which receives
 nonce-related `params` that can be further inspected to determine if the request
 is valid.
 
+A customer header can be used to obtain the authorization value by providing
+the `header` option.  This defaults to 'authorization`
+
     passport.use(new DigestStrategy({ qop: 'auth' },
       function(username, done) {
         User.findOne({ username: username }, function (err, user) {
@@ -123,3 +113,4 @@ For a complete, working example, refer to the [Digest example](https://github.co
 [The MIT License](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2011-2013 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
+Copyright (c) 2024 Paul Wilkinson <[http://wilko.me](http://wilko.me)>
