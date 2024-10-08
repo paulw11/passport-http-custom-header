@@ -61,6 +61,49 @@ vows.describe('DigestStrategy').addBatch({
     },
   },
 
+  'strategy handling a valid request with custom auth header': {
+    topic: function() {
+      var strategy = new DigestStrategy(
+        { header: 'x-authorization' },  // custom header
+        function(username, done) {
+          done(null, { username: username }, 'secret');
+        },
+        function(options, done) {
+          done(null, true);
+        }
+      );
+      return strategy;
+    },
+    
+    'after augmenting with actions': {
+      topic: function(strategy) {
+        var self = this;
+        var req = {};
+        strategy.success = function(user) {
+          self.callback(null, user);
+        }
+        strategy.fail = function() {
+          self.callback(new Error('should not be called'));
+        }
+        
+        req.url = '/';
+        req.method = 'HEAD';
+        req.headers = {};
+        req.headers['x-authorization'] = 'Digest username="bob", realm="Users", nonce="NOIEDJ3hJtqSKaty8KF8xlkaYbItAkiS", uri="/", response="22e3e0a9bbefeb9d229905230cb9ddc8"';
+        process.nextTick(function () {
+          strategy.authenticate(req);
+        });
+      },
+      
+      'should not generate an error' : function(err, user) {
+        assert.isNull(err);
+      },
+      'should authenticate' : function(err, user) {
+        assert.equal(user.username, 'bob');
+      },
+    },
+  },
+
 
   'strategy handling a valid request with an empty username': {
     topic: function() {
