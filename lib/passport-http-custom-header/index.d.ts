@@ -6,6 +6,7 @@ declare module 'passport-http-custom-header' {}
 export interface BasicStrategyOptions<req extends boolean = boolean> {
   realm?: string | undefined
   passReqToCallback?: req | undefined
+  header: string | undefined
 }
 
 export interface DigestStrategyOptions {
@@ -14,6 +15,7 @@ export interface DigestStrategyOptions {
   opaque?: string | undefined
   algorithm?: string | undefined
   qop?: string | string[] | undefined
+  header?: string | undefined
 }
 
 export interface DigestValidateOptions {
