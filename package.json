@@ -1,8 +1,16 @@
 {
   "name": "passport-http-custom-header",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "HTTP Basic and Digest authentication strategies for Passport.",
-  "keywords": ["passport", "http", "basic", "digest", "auth", "authn", "authentication"],
+  "keywords": [
+    "passport",
+    "http",
+    "basic",
+    "digest",
+    "auth",
+    "authn",
+    "authentication"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/paulw11/passport-http-custom-header.git"
@@ -10,23 +18,26 @@
   "bugs": {
     "url": "https://github.com/paulw11/passport-http-custom-header/issues"
   },
-  "contributors":[ 
+  "contributors": [
     {
-    "name": "Jared Hanson",
-    "email": "jaredhanson@gmail.com",
-    "url": "http://www.jaredhanson.net/"
-  },
-  {
-    "name": "Paul Wilkinson",
-    "email": "paulw@wilko.me",
-    "url": "http://wilko.me/"
-  }
-],
-  "licenses": [ {
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/MIT"
-  } ],
-  "main": "./lib/passport-http",
+      "name": "Jared Hanson",
+      "email": "jaredhanson@gmail.com",
+      "url": "http://www.jaredhanson.net/"
+    },
+    {
+      "name": "Paul Wilkinson",
+      "email": "paulw@wilko.me",
+      "url": "http://wilko.me/"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "./lib/passport-http-custom-header/index.js",
+  "types": "./lib/passport-http-custom-header/index.d.ts",
   "dependencies": {
     "passport-strategy": "1.x.x"
   },
@@ -37,5 +48,7 @@
   "scripts": {
     "test": "NODE_PATH=lib make test"
   },
-  "engines": { "node": ">= 0.4.0" }
+  "engines": {
+    "node": ">= 0.4.0"
+  }
 }
