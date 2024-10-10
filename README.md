@@ -1,4 +1,4 @@
-# Passport-HTTP
+# Passport-HTTP-Custom-Header
 
 HTTP Basic and Digest authentication strategies for [Passport](https://github.com/jaredhanson/passport).
 
