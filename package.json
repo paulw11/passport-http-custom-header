@@ -1,6 +1,6 @@
 {
   "name": "passport-http-custom-header",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "HTTP Basic and Digest authentication strategies for Passport.",
   "keywords": [
     "passport",
